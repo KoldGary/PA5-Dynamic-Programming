@@ -4,8 +4,8 @@ package edu.wne.cs366;
  * CS 366 - Programming Assignment #5: Dynamic Programming
  * Simplified Knapsack Problem
  *
- * Name: [Your name here]
- * Date: [Date]
+ * Name: Adrian Gary
+ * Date: 11/30/25
  *
  * This program implements the simplified knapsack problem using dynamic programming.
  * The knapsack problem: Given n items with sizes and a knapsack capacity k,
@@ -59,26 +59,29 @@ public class Knapsack {
      *     then exist[i][j] = true and belong[i][j] = true (use item i)
      */
     public void dynamicKnapsack() {
-        // TODO: Implement the dynamic programming algorithm
-        //
-        // Hints:
-        // 1. Initialize base case: exist[0][0] = true, all other exist[0][j] = false
-        // 2. Use nested loops: outer loop for i (items), inner loop for j (capacity)
-        // 3. For each (i,j):
-        //    - Check if we can achieve j without using item i-1
-        //    - Check if we can achieve j by using item i-1
-        //    - Set exist[i][j] and belong[i][j] accordingly
-        // 4. Follow the pseudocode from the class handout closely
-
+    exist[0][0] = true;
+    for (int j = 1; j <= k; j++) {
+        exist[0][j] = false;
+    }
         // Base case
         exist[0][0] = true;
         for (int j = 1; j <= k; j++) {
             exist[0][j] = false;
         }
 
-        // Fill the DP table
-        // YOUR CODE HERE
+         for (int i = 1; i <= n; i++) {
+        for (int j = 0; j <= k; j++) {
+            if (exist[i - 1][j]) {
+                exist[i][j] = true;
+            }
 
+            int size = sizes[i - 1];
+            if (j >= size && exist[i - 1][j - size]) {
+                exist[i][j] = true;
+                belong[i][j] = true;  
+            }
+        }
+         }
     }
 
     /**
@@ -122,9 +125,20 @@ public class Knapsack {
             return solution;
         }
 
-        // Traceback to find which items are in the solution
-        // YOUR CODE HERE
+         int row = n;
 
+    while (col > 0 && row > 0) {
+        while (row > 0 && !belong[row][col]) {
+            row--;
+        }
+        if (row == 0) {
+            break; 
+        }
+        int itemIndex = row - 1;
+        solution.add(itemIndex);
+        col -= sizes[itemIndex];
+        row--;
+    }
         return solution;
     }
 

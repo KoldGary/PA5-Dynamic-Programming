@@ -1,9 +1,7 @@
 # CS 366 - PA5: Dynamic Programming Analysis
 
-**Name:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-**Date:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
+**Name:** Adrian Gary
+**Date:** 11/30/25
 ---
 
 ## Part 2: Written Analysis
@@ -19,25 +17,25 @@ Trace the following instance of the `dynamicKnapsack` algorithm by filling in th
 #### exist grid (mark T for true, F for false)
 
 ```
-exist | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-------|---|---|---|---|---|---|---|---|---|---|----|
-  0   |   |   |   |   |   |   |   |   |   |   |    |
-  1   |   |   |   |   |   |   |   |   |   |   |    |
-  2   |   |   |   |   |   |   |   |   |   |   |    |
-  3   |   |   |   |   |   |   |   |   |   |   |    |
-  4   |   |   |   |   |   |   |   |   |   |   |    |
+exist |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 |
+------|----|----|----|----|----|----|----|----|----|----|----|
+  0   |  T |  F |  F |  F |  F |  F |  F |  F |  F |  F |  F |
+  1   |  T |  F | **T** |  F |  F |  F |  F |  F |  F |  F |  F |
+  2   |  T |  F |  T |  T |  F | **T** |  F |  F |  F |  F |  F |
+  3   |  T |  F |  T |  T |  F |  T |  F |  T |  T |  F | **T** |
+  4   |  T |  F |  T |  T |  F |  T |  T |  T |  T |  T | **T** |
 ```
 
 #### belong grid (mark T for true, F for false)
 
 ```
-belong| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-------|---|---|---|---|---|---|---|---|---|---|----|
-  0   |   |   |   |   |   |   |   |   |   |   |    |
-  1   |   |   |   |   |   |   |   |   |   |   |    |
-  2   |   |   |   |   |   |   |   |   |   |   |    |
-  3   |   |   |   |   |   |   |   |   |   |   |    |
-  4   |   |   |   |   |   |   |   |   |   |   |    |
+belong|  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 |
+------|----|----|----|----|----|----|----|----|----|----|----|
+  0   |  F |  F |  F |  F |  F |  F |  F |  F |  F |  F |  F |
+  1   |  F |  F | **T** |  F |  F |  F |  F |  F |  F |  F |  F |
+  2   |  F |  F |  F |  F |  F | **T** |  F |  F |  F |  F |  F |
+  3   |  F |  F |  F |  F |  F |  T |  F |  T |  T |  F | **T** |
+  4   |  F |  F |  F |  F |  F |  F |  T |  F |  T |  T | **F** |
 ```
 
 #### Traceback Process
@@ -46,9 +44,9 @@ belong| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 
 **Final Solution:**
 
-- Items in knapsack (by index): \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-- Total size achieved: \_\_\_\_\_\_\_\_\_\_
-- Wasted space: \_\_\_\_\_\_\_\_\_\_
+- Items in knapsack (by index): 0, 1, 2(sizes: 2, 3, 5)
+- Total size achieved: 2+3+5=10
+- Wasted space: k - total = 10 - 10 = 0
 
 ---
 
@@ -58,21 +56,22 @@ belong| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 
 **Time complexity in Θ-notation:**
 
-Θ(\_\_\_\_\_\_\_\_\_\_\_\_)
+Θ(nk)
 
 **Explanation** (analyze the nested loops in the algorithm):
 
-[Your explanation here]
+The DP fills an (n+1) × (k+1) table, since each cell only constant-time work.
+So the total work = number of cells = n × k.
 
 #### Space Complexity
 
 **Space complexity in Θ-notation:**
 
-Θ(\_\_\_\_\_\_\_\_\_\_\_\_)
+Θ(nk)
 
 **Explanation:**
 
-[Your explanation here]
+store the two DP tables (exist and belong), each of size (n+1) × (k+1), so total memory grows to the proportional to n × k
 
 ---
 
@@ -84,7 +83,7 @@ For what values of n and k would this dynamic programming approach become imprac
 
 **Answer:**
 
-[Your answer here]
+When k is very large the Memory and time both blow up, because the DP tables require n × k space and time.
 
 #### Question 2: Pseudo-polynomial time
 
@@ -92,7 +91,8 @@ Why is this algorithm considered "pseudo-polynomial" time?
 
 **Answer:**
 
-[Your answer here]
+the running time depends on the numeric value of k, not the number of bits needed to represent k,
+So it is polynomial in k, and is polynomial is not the true input size (log k).
 
 ---
 
